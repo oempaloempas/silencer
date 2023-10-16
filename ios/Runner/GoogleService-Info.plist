@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBeAadoZ3yMi9Ceo6J8uKxOgvQLyiKVG8w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>372070973550</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.silencer</string>
+	<key>PROJECT_ID</key>
+	<string>silencerapp-3012</string>
+	<key>STORAGE_BUCKET</key>
+	<string>silencerapp-3012.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:372070973550:ios:663a64ae79ad96ee38a67f</string>
+</dict>
+</plist>

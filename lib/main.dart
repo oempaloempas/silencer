@@ -4,6 +4,8 @@ import 'firebase_options.dart';
 
 var firebaseReady = false;
 
+// Just testing if this works...
+
 void main() {
   initFirebase();
   runApp(const MyApp());

@@ -8,7 +8,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Welkom bij Silencer"),
+          title: const Text("Welkom bij Silencer"),
         ),
         body: SizedBox.expand(
           child: Column(
@@ -16,8 +16,13 @@ class Welcome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ElevatedButton(
-                    onPressed: () => context.go('/signup'),
-                    child: const Text("Sign up"))
+                  onPressed: () => context.go('/signup'),
+                  child: const Text("Sign up"),
+                ),
+                ElevatedButton(
+                  onPressed: () => context.go('/login'),
+                  child: const Text("Log in"),
+                )
               ]),
         ));
   }

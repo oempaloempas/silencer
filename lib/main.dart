@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initFirebase();
+    print(Auth.signedIn);
     return MaterialApp.router(
       routerConfig: Navigation().getRoutingInfo(),
     );

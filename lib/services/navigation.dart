@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:go_router/go_router.dart';
 import 'package:silencer/pages/universal/home.dart';
+import 'package:silencer/pages/universal/login.dart';
 import 'package:silencer/pages/universal/signup.dart';
 import 'package:silencer/pages/universal/welcome.dart';
 import 'package:silencer/services/auth.dart';
@@ -29,6 +30,10 @@ class Navigation {
       GoRoute(
         path: '/signup',
         builder: (context, state) => const SignUpEmail(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LogInEmail(),
       )
     ]);
   }

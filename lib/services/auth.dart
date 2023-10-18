@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Auth {
@@ -28,11 +26,15 @@ class Auth {
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
+    Function? whenDone,
   }) async {
     await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
+    if (whenDone != null) {
+      whenDone();
+    }
   }
 
   Future<void> createUserWithEmailAndPassword({

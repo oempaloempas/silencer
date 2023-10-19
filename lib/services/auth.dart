@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:silencer/firebase_options.dart';
 
 class Auth {
   // Instance
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late final FirebaseAuth _firebaseAuth;
 
   // Global variables
   static bool signedIn = false;
@@ -12,7 +14,11 @@ class Auth {
   User? get currentUser => _firebaseAuth.currentUser;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  void init() {
+  Future<void> init() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    _firebaseAuth = FirebaseAuth.instance;
     if (_firebaseAuth.currentUser != null) {
       signedIn = true;
     }

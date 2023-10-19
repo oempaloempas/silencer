@@ -12,7 +12,20 @@
           "package_name": "com.stijnvroegindeweij.silencer"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "372070973550-cobq3d63ov63b8cdl64ololqp74r93fd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stijnvroegindeweij.silencer",
+            "certificate_hash": "2b759f9b62b0fb173cf39c59cbcfc7e2d4c52b7f"
+          }
+        },
+        {
+          "client_id": "372070973550-9118pu5fkrg4hek0grnahpelsj4fbjen.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAKLqruFIjy7xCEb5s3JoZUaEPIGwBRBgs"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372070973550-9118pu5fkrg4hek0grnahpelsj4fbjen.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372070973550-400h5q7nemhoqmgsfn3lfm32sbb6ii0t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.silencer"
+              }
+            }
+          ]
         }
       }
     }

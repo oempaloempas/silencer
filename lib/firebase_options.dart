@@ -70,6 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '372070973550',
     projectId: 'silencerapp-3012',
     storageBucket: 'silencerapp-3012.appspot.com',
+    androidClientId: '372070973550-cobq3d63ov63b8cdl64ololqp74r93fd.apps.googleusercontent.com',
+    iosClientId: '372070973550-400h5q7nemhoqmgsfn3lfm32sbb6ii0t.apps.googleusercontent.com',
     iosBundleId: 'com.example.silencer',
   );
 }

@@ -51,6 +51,11 @@ class Auth {
     }
   }
 
+  Future<void> signInWithGoogle(
+      {required String email,
+      required String password,
+      Function? whenDone}) async {}
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

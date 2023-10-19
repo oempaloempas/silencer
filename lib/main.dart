@@ -17,7 +17,8 @@ void main() async {
   } else {
     Logging.changeLogLevel(Level.all);
   }
-  Logging.infoLog('If you see this message, this is a debug build');
+  Logging.infoLog('If you see this message, this is a debug build',
+      trace: false);
   runApp(const MyApp());
 }
 

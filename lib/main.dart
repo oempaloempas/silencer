@@ -6,11 +6,13 @@ import 'firebase_options.dart';
 
 // Just testing if this works...
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initFirebase();
   runApp(const MyApp());
 }
 
-void initFirebase() async {
+Future<void> initFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -24,7 +26,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initFirebase();
-    print(Auth.signedIn);
     return MaterialApp.router(
       routerConfig: Navigation().getRoutingInfo(),
     );

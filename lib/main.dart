@@ -23,7 +23,7 @@ void main() async {
 
 Future<void> init() async {
   await Auth().init();
-  await Prefs.Init();
+  await Prefs.init();
 }
 
 class MyApp extends StatelessWidget {

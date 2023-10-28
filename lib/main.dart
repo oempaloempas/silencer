@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:silencer/pages/universal/background.dart';
 import 'package:silencer/services/auth.dart';
+import 'package:silencer/services/cron.dart';
 import 'package:silencer/services/logging.dart';
 import 'package:silencer/services/navigation.dart';
 import 'package:silencer/services/prefs.dart';
@@ -23,7 +25,7 @@ void main() async {
 
 Future<void> init() async {
   await Auth().init();
-  await Prefs.init();
+  await Prefs().init();
 }
 
 class MyApp extends StatelessWidget {

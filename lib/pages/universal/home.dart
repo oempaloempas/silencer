@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:silencer/services/auth.dart';
 import 'package:silencer/services/soundmode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 
@@ -46,6 +47,14 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('homepage'),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Auth().signOut();
+            },
+            icon: const Icon(Icons.logout_outlined),
+          ),
+        ],
       ),
       body: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         ElevatedButton(

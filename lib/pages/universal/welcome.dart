@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:silencer/services/auth.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -22,6 +23,12 @@ class Welcome extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () => context.go('/login'),
                   child: const Text("Log in"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Auth().signInWithGoogle();
+                  },
+                  child: const Text("Sign in with Google"),
                 )
               ]),
         ));

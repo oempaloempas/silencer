@@ -6,11 +6,11 @@ import 'package:silencer/firebase_options.dart';
 
 class Auth {
   // Instance
-  late final FirebaseAuth _firebaseAuth;
+  late FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   // Global variables
   static bool signedIn = false;
-
+  String? userUID;
   User? get currentUser => _firebaseAuth.currentUser;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -27,6 +27,7 @@ class Auth {
         signedIn = true;
       } else {
         signedIn = false;
+        userUID = null;
       }
     });
   }

@@ -17,16 +17,26 @@ class LocationService {
     return await location.getLocation();
   }
 
-  static Future<double> getDistance(
-    double lat1,
-    double lon1,
-    double lat2,
-    double lon2,
-    int maxdistance,
-  ) async {
-    double distance =
-        acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon2 - lon1)) *
-            6371; // The formula to get the distance between 2 places
-    return distance;
+  static bool inRange(lat1, lon1, lat2, lon2, maxrange) {
+    if (getDistanceInM(lat1, lon1, lat2, lon2) < maxrange) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static double getDistanceInM(lat1, lon1, lat2, lon2) {
+    double R = 6371000; // Radius of the earth in m
+    double dLat = deg2rad(lat2 - lat1); // deg2rad below
+    double dLon = deg2rad(lon2 - lon1);
+    var a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * sin(dLon / 2) * sin(dLon / 2);
+    var c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    var d = R * c; // Distance in km
+    return d;
+  }
+
+  static double deg2rad(deg) {
+    return deg * (pi / 180);
   }
 }

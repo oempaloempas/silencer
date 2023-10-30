@@ -1,11 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:silencer/services/auth.dart';
 import 'package:silencer/services/location.dart';
 import 'package:silencer/services/logging.dart';
 import 'package:silencer/services/permissions.dart';
 import 'package:silencer/services/soundmode.dart';
+import 'package:silencer/services/wifi.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 
 class Home extends StatefulWidget {
@@ -17,17 +17,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController lat1Controller = TextEditingController();
-  TextEditingController lon1Controller = TextEditingController();
   TextEditingController lat2Controller = TextEditingController();
   TextEditingController lon2Controller = TextEditingController();
+  TextEditingController maxRangeController = TextEditingController();
 
   Future<void> init() async {
     Permissions.ringPermissionGranted();
+    Permissions.locationPermissionGranted();
     if (await Soundmode.getRingMode() == RingerModeStatus.normal) {
       silent = false;
       setState(() {});
     }
+    bool match = await Wifi.tryFindMatch('AndroidWifi');
+    Logging.infoLog(match.toString(), trace: false);
   }
 
   @override
@@ -39,6 +41,7 @@ class _HomeState extends State<Home> {
   }
 
   bool silent = true;
+  bool? inrange;
 
   Color returnButtonColor(String buttonName) {
     if (silent) {
@@ -53,10 +56,30 @@ class _HomeState extends State<Home> {
     return Colors.blue;
   }
 
+  String returnRangeText() {
+    if (inrange == null) {
+      return "";
+    }
+    if (inrange == true) {
+      return "je bent binnen bereik!";
+    }
+    if (inrange == false) {
+      return "je bent buiten bereik";
+    }
+    return 'error';
+  }
+
   Future<void> logDistance(
-      double lat1, double lon1, double lat2, double lon2) async {
-    Logging.infoLog(
-        LocationService.getDistance(lat1, lon1, lat2, lon2, 1).toString());
+    double lat2,
+    double lon2,
+    double maxrange,
+  ) async {
+    LocationData location = await LocationService.getLocation();
+    bool isInRange = LocationService.inRange(
+        location.latitude, location.longitude, lat2, lon2, maxrange);
+    Logging.infoLog(isInRange.toString(), trace: false);
+    inrange = isInRange;
+    setState(() {});
   }
 
   @override
@@ -78,6 +101,7 @@ class _HomeState extends State<Home> {
           silenceTest(),
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           latLonForm(),
+          Text(returnRangeText()),
         ],
       ),
     );
@@ -91,30 +115,8 @@ class _HomeState extends State<Home> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextFormField(
-            controller: lat1Controller,
-            decoration: const InputDecoration(hintText: 'latitude 1'),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Geen waarde ingevuld';
-              } else {
-                return null;
-              }
-            },
-          ),
-          TextFormField(
-            controller: lon1Controller,
-            decoration: const InputDecoration(hintText: 'longitude 1'),
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Geen waarde ingevuld';
-              } else {
-                return null;
-              }
-            },
-          ),
-          TextFormField(
             controller: lat2Controller,
-            decoration: const InputDecoration(hintText: 'latitude 2'),
+            decoration: const InputDecoration(hintText: 'Middelpunt Latitude'),
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Geen waarde ingevuld';
@@ -125,7 +127,18 @@ class _HomeState extends State<Home> {
           ),
           TextFormField(
             controller: lon2Controller,
-            decoration: const InputDecoration(hintText: 'longitude 2'),
+            decoration: const InputDecoration(hintText: 'Middelpunt Longitude'),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return 'Geen waarde ingevuld';
+              } else {
+                return null;
+              }
+            },
+          ),
+          TextFormField(
+            controller: maxRangeController,
+            decoration: const InputDecoration(hintText: 'Maximale afstand'),
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Geen waarde ingevuld';
@@ -139,13 +152,13 @@ class _HomeState extends State<Home> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  double lat1 = double.parse(lat1Controller.text);
-                  double lon1 = double.parse(lon1Controller.text);
                   double lat2 = double.parse(lat2Controller.text);
                   double lon2 = double.parse(lon2Controller.text);
+                  double maxDistance = double.parse(maxRangeController.text);
+                  logDistance(lat2, lon2, maxDistance);
                 }
               },
-              child: const Text('Log in'),
+              child: const Text('submit'),
             ),
           )
         ],

@@ -1,6 +1,7 @@
 import 'package:location/location.dart';
 import 'package:silencer/services/location.dart';
 import 'package:sound_mode/permission_handler.dart';
+import 'package:wifi_scan/wifi_scan.dart';
 
 class Permissions {
   static Future<bool> ringPermissionGranted() async {
@@ -38,5 +39,13 @@ class Permissions {
       }
     }
     return true;
+  }
+
+  static Future<bool> wifiPermissionGranted() async {
+    if (await WiFiScan.instance.canStartScan(askPermissions: true) ==
+        CanStartScan.yes) {
+      return true;
+    }
+    return false;
   }
 }
